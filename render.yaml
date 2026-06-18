@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: smart-club
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    routes:
+      - path: /
+        matchType: prefix
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+      - key: MONGODB_URI
+        fromDatabase:
+          name: smart-club-db
+          property: connectionString
+databases:
+  - name: smart-club-db
+    plan: free
+    databaseName: smart-club
+    user: smart-club-user
